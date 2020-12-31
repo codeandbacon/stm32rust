@@ -29,16 +29,29 @@ fn main() -> ! {
     // System Timer
     let mut delay = stm32f4xx_hal::delay::Delay::new(core_peripherals.SYST, clocks);
 
+    // let freq = 1_000_000;
+    let mut pwm: u32 = 1;
+    let mut direction = true;
+
     loop {
-        led.set_high().unwrap();
-        delay.delay_ms(200_u32);
-        led.set_low().unwrap();
-        delay.delay_ms(200_u32);
-        led.set_high().unwrap();
-        delay.delay_ms(200_u32);
-        led.set_low().unwrap();
-        delay.delay_ms(100_u32);
+        if pwm == 0 || pwm == 100 {
+            direction = !direction
+        };
+        
+        if direction {
+            pwm = pwm + 1;
+        } else {
+            pwm = pwm - 1;
+        }
+        
+        for i in 1..100_u64 {
+            led.set_high().unwrap();
+            delay.delay_us(100 - pwm);
+            led.set_low().unwrap();
+            delay.delay_us(pwm);
+        }
     }
+    
     
 
 }

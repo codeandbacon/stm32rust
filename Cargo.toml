@@ -16,7 +16,6 @@ cortex-m-rt = "0.6.13"
 embedded-hal = "0.2.4"
 panic-halt = "0.2.0"
 
-
 [dependencies.stm32f4xx-hal]
 features = ["stm32f411", "rt"]
 version = "0.8.3"
